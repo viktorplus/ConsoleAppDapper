@@ -9,7 +9,7 @@ namespace ConsoleAppDapper
     public class PromoGoods
     {
         public int Id { get; set; }
-        public int SectionId { get; set; }
+        public string Section { get; set; }
         public string Name { get; set; }
         public string Country { get; set; }
         public DateOnly StartDate { get; set; }
@@ -17,10 +17,10 @@ namespace ConsoleAppDapper
 
         public PromoGoods() { }
 
-        public PromoGoods(int id, int sectionId, string name, string country, DateOnly startDate, DateOnly endDate)
+        public PromoGoods(int id, string section, string name, string country, DateOnly startDate, DateOnly endDate)
         {
             Id = id;
-            SectionId = sectionId;
+            Section = section;
             Name = name;
             Country = country;
             StartDate = startDate;
@@ -28,7 +28,7 @@ namespace ConsoleAppDapper
         }
         public override string ToString()
         {
-            return $"Id: {Id}\nSectionId: {SectionId}\nName: {Name}\nCountry: {Country}\nStartDate: {StartDate}\nEndDate: {EndDate}\n";
+            return $"Id: {Id}\nSection: {Section}\nName: {Name}\nCountry: {Country}\nStartDate: {StartDate}\nEndDate: {EndDate}\n";
         }
     }
 }

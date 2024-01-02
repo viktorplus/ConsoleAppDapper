@@ -19,7 +19,7 @@ namespace ConsoleAppDapper
                 Console.WriteLine("2. Відображення email усіх покупців.");
                 Console.WriteLine("3. Відображення списку розділів.");
                 Console.WriteLine("4. Відображення списку акційних товарів.");
-                //Console.WriteLine("5. Показать Топ-3 самые популярные однопользовательские игры по количеству продаж.");
+                Console.WriteLine("5. Відображення усіх міст.");
                 //Console.WriteLine("6. Показать Топ-3 самые популярные многопользовательские игры по количеству продаж.");
                 //Console.WriteLine("7. Отобразить самую популярную однопользовательскую игру по количеству продаж.");
                 //Console.WriteLine("8. Отобразить самую популярную многопользовательскую игру по количеству продаж.");
@@ -47,9 +47,9 @@ namespace ConsoleAppDapper
                     case "4":
                         db.MultiString<PromoGoods>(Constants.GetPromoGoods);
                         break;
-                    //case "5":
-                    //    Linq.DisplayTop3SinglePlayerGamesBySales(db);
-                    //    break;
+                    case "5":
+                        db.MultiString<string>(Constants.GetCity);
+                        break;
                     //case "6":
                     //    Linq.DisplayTop3MultiPlayerGamesBySales(db);
                     //    break;
