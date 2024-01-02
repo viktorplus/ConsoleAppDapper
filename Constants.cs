@@ -9,7 +9,7 @@ namespace ConsoleAppDapper
     public class Constants
     {
         public const string ConnectionString = @"Data Source=HOMEDE\SQLEXPRESS;Initial Catalog=SPAM;Integrated Security=True;Encrypt=False";
-        public const string GetAllClients = @"select id, name, dateOfBirth, gender, email, country.name, city from Customers join Country country on countryId = country.Id"; // вказати країну
+        public const string GetAllClients = @"SELECT C.id, C.name, dateOfBirth, gender, email, Co.name AS Country, city FROM Customers C JOIN Сountry Co ON C.countryId = Co.id;";
         public const string GetEmails = @"select email from Customers";
         public const string GetSection = @"select * from Section"; 
         public const string GetPromoGoods = @"select * from PromoGoods"; // вказати розділ товару // вказати країну
