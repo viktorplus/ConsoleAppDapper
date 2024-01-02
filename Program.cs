@@ -3,6 +3,7 @@ using System.Text;
 
 namespace ConsoleAppDapper
 {
+    //https://www.learndapper.com/dapper-query/selecting-multiple-rows
     internal class Program
     {
         static void Main(string[] args)
