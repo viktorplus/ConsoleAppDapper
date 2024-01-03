@@ -12,8 +12,9 @@ namespace ConsoleAppDapper
         public const string GetAllClients = @"SELECT C.id, C.name, dateOfBirth, gender, email, Co.name AS Country, city FROM Customers C JOIN Сountry Co ON C.countryId = Co.id;";
         public const string GetEmails = @"select email from Customers";
         public const string GetSection = @"select * from Section"; 
-        public const string GetPromoGoods = @"select * from PromoGoods"; // вказати розділ товару // вказати країну
+        public const string GetPromoGoods = @"SELECT P.id, S.name AS Section, P.name, C.name AS Country, start_date, end_date FROM PromoGoods P JOIN Сountry C ON P.countryId = C.id JOIN Section S ON P.SectionId = S.id;";
         public const string GetCity = @"select city from Customers";
+        public const string GetCountry = @"select * from Сountry";
 
 
     }
@@ -27,7 +28,9 @@ USE SPAM;
 USE SPAM;
 -- Таблиця розділів товарів
 CREATE TABLE Section (
-    id INT PRIMARY KEY IDENTITY(1,1),
+    id INT PRIMARY KEY IDENTITY(1,1
+
+
     name NVARCHAR(255) NOT NULL
 );
 
