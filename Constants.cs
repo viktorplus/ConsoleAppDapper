@@ -16,6 +16,8 @@ namespace ConsoleAppDapper
         public const string GetCity = @"select city from Customers";
         public const string GetCountry = @"select * from Сountry";
         public const string GetAllClientsFromCity = @"SELECT C.id, C.name, dateOfBirth, gender, email, Co.name AS Country, city FROM Customers C JOIN Сountry Co ON C.countryId = Co.id WHERE city = @city;";
+        public const string GetAllClientsFromCountry = @"SELECT C.id, C.name, dateOfBirth, gender, email, Co.name AS Country, city FROM Customers C JOIN Сountry Co ON C.countryId = Co.id WHERE Co.name = @country;";
+        public const string GetPromoGoodsFromCountry = @"SELECT P.id, S.name AS Section, P.name, C.name AS Country, start_date, end_date FROM PromoGoods P JOIN Сountry C ON P.countryId = C.id JOIN Section S ON P.SectionId = S.id WHERE C.name = @country;";
 
 
 

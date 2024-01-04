@@ -22,8 +22,8 @@ namespace ConsoleAppDapper
                 Console.WriteLine("5. Відображення усіх міст.");
                 Console.WriteLine("6. Відображення усіх країн.");
                 Console.WriteLine("7. Відображення усіх покупців з певного міста.");
-                //Console.WriteLine("8. Отобразить самую популярную многопользовательскую игру по количеству продаж.");
-                //Console.WriteLine("9. Отобразить самую популярную игру по количеству продаж.");
+                Console.WriteLine("8. Відображення усіх покупців з певної країни.");
+                Console.WriteLine("9. Відображення усіх акцій для певної країни.");
                 //Console.WriteLine("10. Удалить игры с нулевым количеством продаж.");
                 //Console.WriteLine("11. Удалить игры по количеству продаж.");
                 //Console.WriteLine("12. Отобразить самую популярную однопользовательскую игру по количеству продаж.");
@@ -54,15 +54,17 @@ namespace ConsoleAppDapper
                         db.MultiString<Countrys>(Constants.GetCountry);
                         break;
                     case "7":
-                        var parameters = new { city ="Berlin"};
-                        db.MultiString<Customers>(Constants.GetAllClientsFromCity, parameters);
+                        var parameters7 = new { city ="Berlin"};
+                        db.MultiString<Customers>(Constants.GetAllClientsFromCity, parameters7);
                         break;
-                    //case "8":
-                    //    Linq.DisplayMostPopularMultiplayerGameBySales(db);
-                    //    break;
-                    //case "9":
-                    //    Linq.DisplayMostPopularGameBySales(db);
-                    //    break;
+                    case "8":
+                        var parameters8 = new { country = "Україна" };
+                        db.MultiString<Customers>(Constants.GetAllClientsFromCountry, parameters8);
+                        break;
+                    case "9":
+                        var parameters9 = new { country = "Україна" };
+                        db.MultiString<PromoGoods>(Constants.GetPromoGoodsFromCountry, parameters9);
+                        break;
                     //case "10":
                     //    Linq.DeleteGamesWithZeroSales(db);
                     //    break;
