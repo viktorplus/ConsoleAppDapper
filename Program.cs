@@ -21,7 +21,7 @@ namespace ConsoleAppDapper
                 Console.WriteLine("4. Відображення списку акційних товарів.");
                 Console.WriteLine("5. Відображення усіх міст.");
                 Console.WriteLine("6. Відображення усіх країн.");
-                //Console.WriteLine("7. Отобразить самую популярную однопользовательскую игру по количеству продаж.");
+                Console.WriteLine("7. Відображення усіх покупців з певного міста.");
                 //Console.WriteLine("8. Отобразить самую популярную многопользовательскую игру по количеству продаж.");
                 //Console.WriteLine("9. Отобразить самую популярную игру по количеству продаж.");
                 //Console.WriteLine("10. Удалить игры с нулевым количеством продаж.");
@@ -53,9 +53,10 @@ namespace ConsoleAppDapper
                     case "6":
                         db.MultiString<Countrys>(Constants.GetCountry);
                         break;
-                    //case "7":
-                    //    Linq.DisplayMostPopularSinglePlayerGameBySales(db);
-                    //    break;
+                    case "7":
+                        var parameters = new { city ="Berlin"};
+                        db.MultiString<Customers>(Constants.GetAllClientsFromCity, parameters);
+                        break;
                     //case "8":
                     //    Linq.DisplayMostPopularMultiplayerGameBySales(db);
                     //    break;
