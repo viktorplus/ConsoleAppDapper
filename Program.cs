@@ -24,9 +24,9 @@ namespace ConsoleAppDapper
                 Console.WriteLine("7. Відображення усіх покупців з певного міста.");
                 Console.WriteLine("8. Відображення усіх покупців з певної країни.");
                 Console.WriteLine("9. Відображення усіх акцій для певної країни.");
-                //Console.WriteLine("10. Удалить игры с нулевым количеством продаж.");
-                //Console.WriteLine("11. Удалить игры по количеству продаж.");
-                //Console.WriteLine("12. Отобразить самую популярную однопользовательскую игру по количеству продаж.");
+                Console.WriteLine("10. Вставка інформації про нових покупців.");
+                Console.WriteLine("11. Вставка нових країн.");
+                Console.WriteLine("12. Вставка інформації про нові розділи.");
                 //Console.WriteLine("13. Отобразить самую популярную многопользовательскую игру по количеству продаж.");
                 //Console.WriteLine("14. Отобразить самую популярную игру по количеству продаж.");
                 Console.WriteLine("100. Вихід.");
@@ -54,34 +54,29 @@ namespace ConsoleAppDapper
                         db.MultiString<Countrys>(Constants.GetCountry);
                         break;
                     case "7":
-                        var parameters7 = new { city ="Berlin"};
-                        db.MultiString<Customers>(Constants.GetAllClientsFromCity, parameters7);
+                        var param7 = new { city ="Berlin"};
+                        db.MultiString<Customers>(Constants.GetAllClientsFromCity, param7);
                         break;
                     case "8":
-                        var parameters8 = new { country = "Україна" };
-                        db.MultiString<Customers>(Constants.GetAllClientsFromCountry, parameters8);
+                        var param8 = new { country = "Україна" };
+                        db.MultiString<Customers>(Constants.GetAllClientsFromCountry, param8);
                         break;
                     case "9":
-                        var parameters9 = new { country = "Україна" };
-                        db.MultiString<PromoGoods>(Constants.GetPromoGoodsFromCountry, parameters9);
+                        var param9 = new { country = "Україна" };
+                        db.MultiString<PromoGoods>(Constants.GetPromoGoodsFromCountry, param9);
                         break;
-                    //case "10":
-                    //    Linq.DeleteGamesWithZeroSales(db);
-                    //    break;
-                    //case "11":
-                    //    Console.Write("Введите количество продаж: ");
-                    //    if (int.TryParse(Console.ReadLine(), out int salesCount))
-                    //    {
-                    //        Linq.DeleteGamesBySales(db, salesCount);
-                    //    }
-                    //    else
-                    //    {
-                    //        Console.WriteLine("Некорректный ввод для количества продаж.");
-                    //    }
-                    //    break;
-                    //case "12":
-                    //    Linq.DisplayMostPopularSinglePlayerGameBySales(db);
-                    //    break;
+                    case "10":
+                        object[] param10 = { new { name = "John Doe", dateOfBirth="2000-01-01", gender = "Чоловіча", email = "jdoe@example.com", country="Німеччина", city="Hannover" } };
+                        db.Insert(Constants.InsertCustomer, param10);
+                        break;
+                    case "11":
+                        object[] param11 = { new { name = "Китай"} };
+                        db.Insert(Constants.InsertCountry, param11);
+                        break;
+                    case "12":
+                        object[] param12 = { new { name = "Новий розділ" } };
+                        db.Insert(Constants.InsertSection, param12);
+                        break;
                     //case "13":
                     //    Linq.DisplayMostPopularMultiplayerGameBySales(db);
                     //    break;

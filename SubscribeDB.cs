@@ -41,6 +41,28 @@ namespace ConsoleAppDapper
 
         }
 
+
+        public void Insert(string SqlQuery, object param)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    var affectedRows = connection.Execute(SqlQuery, param);
+                    Console.WriteLine($"Affected Rows: {affectedRows}");
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine($"Помилка SQL: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Помилка: {ex.Message}");
+            }
+
+        }
+
     }
 
 
