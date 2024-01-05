@@ -21,8 +21,7 @@ namespace ConsoleAppDapper
         public const string InsertCustomer = @"INSERT INTO Customers (name, dateOfBirth, gender, email, countryId, city) VALUES (@name, @dateOfBirth, @gender, @email, (Select id from Сountry WHERE name= @country), @city);";
         public const string InsertCountry = @"insert into Сountry (name) values(@name)";
         public const string InsertSection = @"insert into Section (name) values(@name)";
-
-
+        public const string InsertPromoGoods = @"INSERT INTO PromoGoods (sectionId, name, countryId, start_date, end_date) VALUES ((Select id from Section WHERE name= @section), @name, (Select id from Сountry WHERE name= @country), @start_date, @end_date);";
 
     }
 }

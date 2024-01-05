@@ -27,7 +27,7 @@ namespace ConsoleAppDapper
                 Console.WriteLine("10. Вставка інформації про нових покупців.");
                 Console.WriteLine("11. Вставка нових країн.");
                 Console.WriteLine("12. Вставка інформації про нові розділи.");
-                //Console.WriteLine("13. Отобразить самую популярную многопользовательскую игру по количеству продаж.");
+                Console.WriteLine("13. Вставка інформації про нові акційні товари.");
                 //Console.WriteLine("14. Отобразить самую популярную игру по количеству продаж.");
                 Console.WriteLine("100. Вихід.");
                 Console.Write("Выберіть дію (1-): ");
@@ -77,9 +77,10 @@ namespace ConsoleAppDapper
                         object[] param12 = { new { name = "Новий розділ" } };
                         db.Insert(Constants.InsertSection, param12);
                         break;
-                    //case "13":
-                    //    Linq.DisplayMostPopularMultiplayerGameBySales(db);
-                    //    break;
+                    case "13":
+                        object[] param13 = { new { section = "Новий розділ", name = "Новий товар", country = "Німеччина", start_date = "2021-01-01", end_date = "2021-01-31" } };
+                        db.Insert(Constants.InsertPromoGoods, param13);
+                        break;
                     //case "14":
                     //    Linq.DisplayMostPopularGameBySales(db);
                     //    break;
