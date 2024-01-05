@@ -42,7 +42,7 @@ namespace ConsoleAppDapper
         }
 
 
-        public void Insert(string SqlQuery, object param)
+        public void Execute(string SqlQuery, object param)
         {
             try
             {

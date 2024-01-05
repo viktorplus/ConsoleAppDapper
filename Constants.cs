@@ -22,6 +22,17 @@ namespace ConsoleAppDapper
         public const string InsertCountry = @"insert into Сountry (name) values(@name)";
         public const string InsertSection = @"insert into Section (name) values(@name)";
         public const string InsertPromoGoods = @"INSERT INTO PromoGoods (sectionId, name, countryId, start_date, end_date) VALUES ((Select id from Section WHERE name= @section), @name, (Select id from Сountry WHERE name= @country), @start_date, @end_date);";
+        public const string UpdateCustomer = @"update Customers set name = @name, dateOfBirth = @dateOfBirth, gender = @gender, email = @email, countryId = (Select id from Сountry WHERE name= @country), city=@city WHERE id=@id";
+        public const string UpdateCountry = @"update Сountry set name = @name WHERE id=@id";
+        public const string UpdateSection = @"update Section set name = @name WHERE id=@id";
+        public const string UpdatePromoGoods = @"update PromoGoods set sectionId = (Select id from Section WHERE name= @section), name = @name, countryId = (Select id from Сountry WHERE name= @country), start_date = @start_date, end_date = @end_date WHERE id=@id";
+        public const string DeleteCustomer = @"delete from Customers WHERE id=@id";
+        public const string DeleteCountry = @"delete from Сountry WHERE id=@id";
+        public const string DeleteSection = @"delete from Section WHERE id=@id";
+        public const string DeletePromoGoods = @"delete from PromoGoods WHERE id=@id";
+        public const string GetCityFromCountry = @"select city from Customers where countryId = (select id from Сountry where name = @country)";
+        public const string GetSectionfromCustomer = @"SELECT Section.name AS SectionName FROM Subsribe JOIN Section ON Subsribe.sectionId = Section.id WHERE Subsribe.customerId = @Id";
+        public const string GetPromoGoodsFromSection = @"SELECT * FROM PromoGoods P JOIN Section S ON P.sectionId = S.id WHERE S.name = @section";
 
     }
 }
