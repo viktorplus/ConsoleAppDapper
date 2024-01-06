@@ -45,6 +45,13 @@ namespace ConsoleAppDapper
         public const string GetBestCountryByCustomers = @"SELECT TOP 1 Сountry.name AS CountryName, COUNT(*) AS CustomerCount FROM Сountry JOIN Customers ON Сountry.id = Customers.countryId GROUP BY Сountry.name ORDER BY CustomerCount DESC;";
         public const string GetTop3CityByCustomers = @"SELECT TOP 3 city AS CityName, COUNT(*) AS CustomerCount FROM Customers GROUP BY city ORDER BY CustomerCount DESC;";
         public const string GetBestCityByCustomers = @"SELECT TOP 1 city AS CityName, COUNT(*) AS CustomerCount FROM Customers GROUP BY city ORDER BY CustomerCount DESC;";
+        public const string Top3PopularSection = @"SELECT TOP 3 Section.name AS SectionName, COUNT(*) AS CustomerCount FROM Customers JOIN Subsribe ON Customers.id = Subsribe.customerId JOIN Section ON Subsribe.sectionId = Section.id GROUP BY Section.name ORDER BY CustomerCount DESC;";
+        public const string Top3UnpopularSection = @"SELECT TOP 3 Section.name AS SectionName, COUNT(*) AS CustomerCount FROM Customers JOIN Subsribe ON Customers.id = Subsribe.customerId JOIN Section ON Subsribe.sectionId = Section.id GROUP BY Section.name ORDER BY CustomerCount ASC;";
+
+
+
+
+        public const string GetPromoGoodsFor3days = @"SELECT id, name AS PromoGoodName, start_date, end_date FROM PromoGoods WHERE DATEDIFF(day, GETDATE(), end_date) = 3;";
 
 
     }

@@ -51,10 +51,11 @@ namespace ConsoleAppDapper
                 Console.WriteLine("38.Відобразити Топ-3 країни за кількістю покупців.");
                 Console.WriteLine("39.Показати найкращу країну за кількістю покупців.");
                 Console.WriteLine("40.Показати Топ-3 міст за кількістю покупців.");
-
                 Console.WriteLine("41.Показати найкраще місто за кількістю покупців.");
-                //Console.WriteLine("42. Показати Топ-3 міст за кількістю покупців.");
-                //Console.WriteLine("3. Відображення списку розділів.");
+
+
+                Console.WriteLine("42.Показати Топ-3 найпопулярніших розділів розсилки.");
+                Console.WriteLine("43.Показати Топ-3 найнепопулярніших розділів розсилки.");
                 //Console.WriteLine("4. Відображення списку акційних товарів.");
                 //Console.WriteLine("5. Відображення усіх міст.");
                 //Console.WriteLine("6. Відображення усіх країн.");
@@ -225,6 +226,22 @@ namespace ConsoleAppDapper
                         foreach (dynamic result in results41)
                         {
                             Console.WriteLine($"CityName: {result.CityName}, CustomerCount: {result.CustomerCount}");
+                        }
+                        break;
+
+                    case "42":
+                        var results42 = db.MultiString(Constants.Top3PopularSection);
+                        foreach (dynamic result in results42)
+                        {
+                            Console.WriteLine($"SectionName: {result.SectionName}, CustomerCount: {result.CustomerCount}");
+                        }
+                        break;
+
+                    case "43":
+                        var results43 = db.MultiString(Constants.Top3UnpopularSection);
+                        foreach (dynamic result in results43)
+                        {
+                            Console.WriteLine($"SectionName: {result.SectionName}, CustomerCount: {result.CustomerCount}");
                         }
                         break;
 
