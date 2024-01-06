@@ -33,6 +33,13 @@ namespace ConsoleAppDapper
         public const string GetCityFromCountry = @"select city from Customers where countryId = (select id from Сountry where name = @country)";
         public const string GetSectionfromCustomer = @"SELECT Section.name AS SectionName FROM Subsribe JOIN Section ON Subsribe.sectionId = Section.id WHERE Subsribe.customerId = @Id";
         public const string GetPromoGoodsFromSection = @"SELECT * FROM PromoGoods P JOIN Section S ON P.sectionId = S.id WHERE S.name = @section";
+        public const string GetCountCustomersFromCity = @"SELECT city AS CityName, COUNT(*) AS CustomerCount FROM Customers GROUP BY city;";
+        public const string GetCountCustomersFromCountry = @"SELECT Сountry.name AS CountryName, COUNT(*) AS CustomerCount FROM Сountry JOIN Customers ON Сountry.id = Customers.countryId GROUP BY Сountry.name;";
+        public const string GetCountCityFromCountry = @"SELECT Сountry.name AS CountryName, COUNT(DISTINCT city) AS CityCount FROM Customers JOIN Сountry ON Customers.countryId = Сountry.id GROUP BY Сountry.name;";
+        public const string GetAvgCountCityFromCountry = @"SELECT AVG(CAST(CityCount AS FLOAT)) AS AverageCityCount FROM (SELECT countryId, COUNT(DISTINCT city) AS CityCount FROM Customers GROUP BY countryId) AS CityCounts;";
+
+
+
 
     }
 }

@@ -41,8 +41,39 @@ namespace ConsoleAppDapper
 
         }
 
+        public IEnumerable<dynamic> MultiString(string SqlQuery, object param = null)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    var results = connection.Query(SqlQuery, param);
+                    return results;
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine($"Помилка SQL: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Помилка: {ex.Message}");
+            }
 
-        public void Execute(string SqlQuery, object param)
+            return null;
+
+            /*var results = MultiString(Constants.GetCountCustomersFromCity);
+                foreach (dynamic result in results)
+                {
+                    Console.WriteLine($"CityName: {result.CityName}, CustomerCount: {result.CustomerCount}");
+                }
+
+            */
+        }
+
+
+
+        public void Execute(string SqlQuery, object param=null)
         {
             try
             {
@@ -60,6 +91,30 @@ namespace ConsoleAppDapper
             {
                 Console.WriteLine($"Помилка: {ex.Message}");
             }
+            //    object[] param19 = { new { id = 1003 } };
+            //    db.Execute(Constants.DeleteCountry, param19);
+        }
+
+        public void ExecuteScalar(string SqlQuery, object param=null)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    var result = connection.ExecuteScalar(SqlQuery, param);
+                    Console.WriteLine($"Result: {result}");
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine($"Помилка SQL: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Помилка: {ex.Message}");
+            }
+            //    object[] param19 = { new { id = 1003 } };
+            //    db.Execute(Constants.DeleteCountry, param19);
 
         }
 
