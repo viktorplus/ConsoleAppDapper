@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
 
 namespace ConsoleAppDapper
 {
@@ -37,8 +38,13 @@ namespace ConsoleAppDapper
         public const string GetCountCustomersFromCountry = @"SELECT Сountry.name AS CountryName, COUNT(*) AS CustomerCount FROM Сountry JOIN Customers ON Сountry.id = Customers.countryId GROUP BY Сountry.name;";
         public const string GetCountCityFromCountry = @"SELECT Сountry.name AS CountryName, COUNT(DISTINCT city) AS CityCount FROM Customers JOIN Сountry ON Customers.countryId = Сountry.id GROUP BY Сountry.name;";
         public const string GetAvgCountCityFromCountry = @"SELECT AVG(CAST(CityCount AS FLOAT)) AS AverageCityCount FROM (SELECT countryId, COUNT(DISTINCT city) AS CityCount FROM Customers GROUP BY countryId) AS CityCounts;";
-
-
+        public const string GetSectionFromCountry = @"SELECT Section.name AS SectionName FROM PromoGoods JOIN Section ON PromoGoods.sectionId = Section.id JOIN Сountry ON PromoGoods.countryId = Сountry.id WHERE Сountry.name = @country;";
+        public const string GetPromoGoodsFromSectionFromDate = @"SELECT * FROM PromoGoods P JOIN Section S ON P.sectionId = S.id WHERE S.name = @section AND start_date >= @start_date AND end_date <= @end_date;";
+        public const string GetPromoGoodsFromCustomer = @"SELECT P.name AS PromoGoodsName FROM PromoGoods P JOIN Subsribe S ON P.sectionId = S.sectionId WHERE S.customerId = @Id;";
+        public const string GetTop3CountryByCustomers = @"SELECT TOP 3 Сountry.name AS CountryName, COUNT(*) AS CustomerCount FROM Сountry JOIN Customers ON Сountry.id = Customers.countryId GROUP BY Сountry.name ORDER BY CustomerCount DESC;";
+        public const string GetBestCountryByCustomers = @"SELECT TOP 1 Сountry.name AS CountryName, COUNT(*) AS CustomerCount FROM Сountry JOIN Customers ON Сountry.id = Customers.countryId GROUP BY Сountry.name ORDER BY CustomerCount DESC;";
+        public const string GetTop3CityByCustomers = @"SELECT TOP 3 city AS CityName, COUNT(*) AS CustomerCount FROM Customers GROUP BY city ORDER BY CustomerCount DESC;";
+        public const string GetBestCityByCustomers = @"SELECT TOP 1 city AS CityName, COUNT(*) AS CustomerCount FROM Customers GROUP BY city ORDER BY CustomerCount DESC;";
 
 
     }

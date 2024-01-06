@@ -41,16 +41,28 @@ namespace ConsoleAppDapper
 
                 ////////////////////////////////
                 ///
-                Console.WriteLine("1.Відобразити кількість покупців у кожному місті.");
-                Console.WriteLine("2.Відобразити кількість покупців у кожній країні.");
-                Console.WriteLine("3.Відобразити кількість міст у кожній країні.");
-                Console.WriteLine("4.Відобразити середню кількість міст по всіх країнах.");
+                Console.WriteLine("31.Відобразити кількість покупців у кожному місті.");
+                Console.WriteLine("32.Відобразити кількість покупців у кожній країні.");
+                Console.WriteLine("33.Відобразити кількість міст у кожній країні.");
+                Console.WriteLine("34.Відобразити середню кількість міст по всіх країнах.");
+                Console.WriteLine("35.Відобразити усі розділи, в яких зацікавлені певні покупці певної країни.");
+                Console.WriteLine("36.Відобразити усі акційні товари певного розділу за вказаний проміжок часу.");
+                Console.WriteLine("37.Відобразити усі акційні товари певного покупця.");
+                Console.WriteLine("38.Відобразити Топ-3 країни за кількістю покупців.");
+                Console.WriteLine("39.Показати найкращу країну за кількістю покупців.");
+                Console.WriteLine("40.Показати Топ-3 міст за кількістю покупців.");
+
+                Console.WriteLine("41.Показати найкраще місто за кількістю покупців.");
+                //Console.WriteLine("42. Показати Топ-3 міст за кількістю покупців.");
+                //Console.WriteLine("3. Відображення списку розділів.");
+                //Console.WriteLine("4. Відображення списку акційних товарів.");
                 //Console.WriteLine("5. Відображення усіх міст.");
                 //Console.WriteLine("6. Відображення усіх країн.");
                 //Console.WriteLine("7. Відображення усіх покупців з певного міста.");
                 //Console.WriteLine("8. Відображення усіх покупців з певної країни.");
                 //Console.WriteLine("9. Відображення усіх акцій для певної країни.");
                 //Console.WriteLine("10. Вставка інформації про нових покупців.");
+
 
                 Console.WriteLine("100. Вихід.");
                 Console.Write("Выберіть дію (1-): ");
@@ -141,7 +153,7 @@ namespace ConsoleAppDapper
                     //    db.MultiString<PromoGoods>(Constants.GetPromoGoodsFromSection, param22);
                     //    break;
 
-                    case "1":
+                    case "31":
                         var results1 = db.MultiString(Constants.GetCountCustomersFromCity);
                         foreach (dynamic result in results1)
                         {
@@ -149,7 +161,7 @@ namespace ConsoleAppDapper
                         }
 
                         break;
-                    case "2":
+                    case "32":
                         var results2 = db.MultiString(Constants.GetCountCustomersFromCountry);
                         foreach (dynamic result in results2)
                         {
@@ -157,7 +169,7 @@ namespace ConsoleAppDapper
                         }
                         break;
 
-                    case "3":
+                    case "33":
                         var results = db.MultiString(Constants.GetCountCityFromCountry);
                         foreach (dynamic result in results)
                         {
@@ -165,8 +177,55 @@ namespace ConsoleAppDapper
                         }
                         break;
 
-                    case "4":
+                    case "34":
                         db.ExecuteScalar(Constants.GetAvgCountCityFromCountry);
+                        break;
+
+                    case "35":
+                        var param35 = new { country = "Україна" };
+                        db.MultiString<string>(Constants.GetSectionFromCountry, param35);
+                        break;
+
+                    case "36":
+                        var param36 = new { section = "Новий розділ", start_date = "2021-01-01", end_date = "2021-01-31" };
+                        db.MultiString<PromoGoods>(Constants.GetPromoGoodsFromSectionFromDate, param36);
+                        break;
+
+                    case "37":
+                        var param37 = new { id = 1 };
+                        db.MultiString<string>(Constants.GetPromoGoodsFromCustomer, param37);
+                        break;
+
+                    case "38":
+                        var results38 = db.MultiString(Constants.GetTop3CountryByCustomers);
+                        foreach (dynamic result in results38)
+                        {
+                            Console.WriteLine($"CountryName: {result.CountryName}, CustomerCount: {result.CustomerCount}");
+                        }
+                        break;
+
+                    case "39":
+                        var results39 = db.MultiString(Constants.GetBestCountryByCustomers);
+                        foreach (dynamic result in results39)
+                        {
+                            Console.WriteLine($"CountryName: {result.CountryName}, CustomerCount: {result.CustomerCount}");
+                        }
+                        break;
+
+                    case "40":
+                        var results40 = db.MultiString(Constants.GetTop3CityByCustomers);
+                        foreach (dynamic result in results40)
+                        {
+                            Console.WriteLine($"CityName: {result.CityName}, CustomerCount: {result.CustomerCount}");
+                        }
+                        break;
+
+                    case "41":
+                        var results41 = db.MultiString(Constants.GetBestCityByCustomers);
+                        foreach (dynamic result in results41)
+                        {
+                            Console.WriteLine($"CityName: {result.CityName}, CustomerCount: {result.CustomerCount}");
+                        }
                         break;
 
 
