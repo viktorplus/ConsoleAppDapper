@@ -59,7 +59,6 @@ namespace ConsoleAppDapper
         public static string GetBestSectionByGender = @"SELECT gender, SectionId, SectionName, SubscriberCount FROM ( SELECT c.gender, s.sectionId, se.name AS SectionName, COUNT(s.customerId) AS SubscriberCount, ROW_NUMBER() OVER (PARTITION BY c.gender ORDER BY COUNT(s.customerId) DESC) AS RowNum FROM Subsribe s JOIN Customers c ON s.customerId = c.id JOIN Section se ON s.sectionId = se.id GROUP BY c.gender, s.sectionId, se.name ) AS PopularSections WHERE RowNum = 1;";
         public static string GetTop3SectionByGender = @"SELECT gender, SectionId, SectionName, SubscriberCount FROM ( SELECT c.gender, s.sectionId, se.name AS SectionName, COUNT(s.customerId) AS SubscriberCount, ROW_NUMBER() OVER (PARTITION BY c.gender ORDER BY COUNT(s.customerId) DESC) AS RowNum FROM Subsribe s JOIN Customers c ON s.customerId = c.id JOIN Section se ON s.sectionId = se.id GROUP BY c.gender, s.sectionId, se.name ) AS PopularSections WHERE RowNum <=3;";
         public static string GetCountCustomersByGender = @"SELECT gender, COUNT(*) AS CustomerCount FROM Customers GROUP BY gender;";
-        //Відобразіть кількість покупців кожної статі з кожної країни
         public static string GetCountCustomerByGenderByCountry = @"SELECT c.gender, co.name AS CountryName, COUNT(*) AS CustomerCount FROM Customers c JOIN Сountry co ON c.countryId = co.id GROUP BY c.gender, co.name;";
 
     }
