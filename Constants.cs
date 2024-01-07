@@ -47,12 +47,20 @@ namespace ConsoleAppDapper
         public const string GetBestCityByCustomers = @"SELECT TOP 1 city AS CityName, COUNT(*) AS CustomerCount FROM Customers GROUP BY city ORDER BY CustomerCount DESC;";
         public const string Top3PopularSection = @"SELECT TOP 3 Section.name AS SectionName, COUNT(*) AS CustomerCount FROM Customers JOIN Subsribe ON Customers.id = Subsribe.customerId JOIN Section ON Subsribe.sectionId = Section.id GROUP BY Section.name ORDER BY CustomerCount DESC;";
         public const string Top3UnpopularSection = @"SELECT TOP 3 Section.name AS SectionName, COUNT(*) AS CustomerCount FROM Customers JOIN Subsribe ON Customers.id = Subsribe.customerId JOIN Section ON Subsribe.sectionId = Section.id GROUP BY Section.name ORDER BY CustomerCount ASC;";
-
-
-
-
+        public const string Top3SectionByPromoGoods = @"SELECT TOP 3 Section.name AS SectionName, COUNT(*) AS PromoGoodsCount FROM PromoGoods JOIN Section ON PromoGoods.sectionId = Section.id GROUP BY Section.name ORDER BY PromoGoodsCount DESC;";
+        public const string BestSectionByPromoGoods = @"SELECT TOP 1 Section.name AS SectionName, COUNT(*) AS PromoGoodsCount FROM PromoGoods JOIN Section ON PromoGoods.sectionId = Section.id GROUP BY Section.name ORDER BY PromoGoodsCount DESC;";
+        public const string UnpopularSectionByPromoGoods = @"SELECT TOP 3 Section.name AS SectionName, COUNT(*) AS PromoGoodsCount FROM PromoGoods JOIN Section ON PromoGoods.sectionId = Section.id GROUP BY Section.name ORDER BY PromoGoodsCount ASC;";
         public const string GetPromoGoodsFor3days = @"SELECT id, name AS PromoGoodName, start_date, end_date FROM PromoGoods WHERE DATEDIFF(day, GETDATE(), end_date) = 3;";
-
+        public const string GetPromoGoodsForToday = @"SELECT id, name AS PromoGoodName, start_date, end_date FROM PromoGoods WHERE DATEDIFF(day, GETDATE(), end_date) < 0;";
+        public const string MoveExpiredPromoGoodsToArchive = @"EXEC MoveExpiredPromoGoodsToArchive;";
+        public const string GetAvgAgeBySection = @"SELECT Section.name AS SectionName, AVG(DATEDIFF(year, dateOfBirth, GETDATE())) AS AvgAge FROM Customers JOIN Subsribe ON Customers.id = Subsribe.customerId JOIN Section ON Subsribe.sectionId = Section.id GROUP BY Section.name;";
+        public const string GetAvgAgeByCity = @"SELECT city AS CityName, AVG(DATEDIFF(year, dateOfBirth, GETDATE())) AS AvgAge FROM Customers GROUP BY city;";
+        public const string GetAvgAgeByCountry = @"SELECT Сountry.name AS CountryName, AVG(DATEDIFF(year, dateOfBirth, GETDATE())) AS AvgAge FROM Сountry JOIN Customers ON Сountry.id = Customers.countryId GROUP BY Сountry.name;";
+        public static string GetBestSectionByGender = @"SELECT gender, SectionId, SectionName, SubscriberCount FROM ( SELECT c.gender, s.sectionId, se.name AS SectionName, COUNT(s.customerId) AS SubscriberCount, ROW_NUMBER() OVER (PARTITION BY c.gender ORDER BY COUNT(s.customerId) DESC) AS RowNum FROM Subsribe s JOIN Customers c ON s.customerId = c.id JOIN Section se ON s.sectionId = se.id GROUP BY c.gender, s.sectionId, se.name ) AS PopularSections WHERE RowNum = 1;";
+        public static string GetTop3SectionByGender = @"SELECT gender, SectionId, SectionName, SubscriberCount FROM ( SELECT c.gender, s.sectionId, se.name AS SectionName, COUNT(s.customerId) AS SubscriberCount, ROW_NUMBER() OVER (PARTITION BY c.gender ORDER BY COUNT(s.customerId) DESC) AS RowNum FROM Subsribe s JOIN Customers c ON s.customerId = c.id JOIN Section se ON s.sectionId = se.id GROUP BY c.gender, s.sectionId, se.name ) AS PopularSections WHERE RowNum <=3;";
+        public static string GetCountCustomersByGender = @"SELECT gender, COUNT(*) AS CustomerCount FROM Customers GROUP BY gender;";
+        //Відобразіть кількість покупців кожної статі з кожної країни
+        public static string GetCountCustomerByGenderByCountry = @"SELECT c.gender, co.name AS CountryName, COUNT(*) AS CustomerCount FROM Customers c JOIN Сountry co ON c.countryId = co.id GROUP BY c.gender, co.name;";
 
     }
 }
@@ -108,6 +116,33 @@ CREATE TABLE PromoGoods (
     end_date DATE NOT NULL,
 	FOREIGN KEY (sectionId) REFERENCES Section(id),
 	FOREIGN KEY (countryId) REFERENCES Сountry(id)
+);
+
+-- Таблиця Архів акційних товарів
+CREATE TABLE ArchivePromoGoods (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    sectionId INT,
+	name NVARCHAR(255) NOT NULL,
+	countryId int NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+	FOREIGN KEY (sectionId) REFERENCES Section(id),
+	FOREIGN KEY (countryId) REFERENCES Сountry(id)
+);
+-- Процедура Архів покупців
+CREATE PROCEDURE MoveExpiredPromoGoodsToArchive
+AS
+BEGIN
+    INSERT INTO ArchivePromoGoods (sectionId, name, countryId, start_date, end_date)
+    SELECT sectionId, name, countryId, start_date, end_date
+    FROM PromoGoods
+    WHERE end_date < GETDATE();
+
+    DELETE FROM PromoGoods
+    WHERE end_date < GETDATE();
+END;
+
+
 );
 */
 

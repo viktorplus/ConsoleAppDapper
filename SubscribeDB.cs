@@ -118,6 +118,25 @@ namespace ConsoleAppDapper
 
         }
 
+        /*CREATE PROCEDURE GetCustomerById 
+            (@id int)  
+            AS  
+            BEGIN    
+                SELECT * FROM Customer WHERE CustomerID = @id  
+            END
+
+
+        using(var connection = new SqlConnection(connectionString))
+{
+            //Set up DynamicParameters object to pass parameters  https://www.learndapper.com/stored-procedures
+            DynamicParameters parameters = new DynamicParameters();   
+            parameters.Add("id", 1);  
+	
+            //Execute stored procedure and map the returned result to a Customer object  
+            var customer = conn.QuerySingleOrDefault<Customer>("GetCustomerById", parameters, commandType: CommandType.StoredProcedure);
+}
+        */
+
     }
 
 

@@ -56,13 +56,22 @@ namespace ConsoleAppDapper
 
                 Console.WriteLine("42.Показати Топ-3 найпопулярніших розділів розсилки.");
                 Console.WriteLine("43.Показати Топ-3 найнепопулярніших розділів розсилки.");
-                //Console.WriteLine("4. Відображення списку акційних товарів.");
-                //Console.WriteLine("5. Відображення усіх міст.");
-                //Console.WriteLine("6. Відображення усіх країн.");
-                //Console.WriteLine("7. Відображення усіх покупців з певного міста.");
-                //Console.WriteLine("8. Відображення усіх покупців з певної країни.");
-                //Console.WriteLine("9. Відображення усіх акцій для певної країни.");
-                //Console.WriteLine("10. Вставка інформації про нових покупців.");
+                Console.WriteLine("44.Показати Топ-3 розділів розсилки за кількістю акційних товарів.");
+                Console.WriteLine("45.Показати розділ розсилки з найбільшою кількістю акційних товарів.");
+                Console.WriteLine("46.Показати Топ-3 розділів розсилки з найменшою кількістю акційних товарів.");
+                Console.WriteLine("47.Відобразіть усі акційні товари, які мають три дні до кінця акції.");
+                Console.WriteLine("48.Відобразіть усі акційні товари, в яких закінчився термін дії акції.");
+                Console.WriteLine("49.Перенесіть усі товари, в яких закінчився термін дії акції, до\r\nтаблиці під назвою «Архів акцій».Збережена процедура.");
+                Console.WriteLine("50.Відобразіть середній вік покупців по кожному розділу.");
+                Console.WriteLine("51.Відобразіть середній вік покупця по кожному місту.");
+                Console.WriteLine("52.Відобразіть середній вік покупця по кожній країні.");
+                Console.WriteLine("53.Відобразіть найпопулярніший розділ для кожної статі.");
+                Console.WriteLine("54.Відобразіть Топ-3 розділи для кожної статі.");
+                Console.WriteLine("55.Відобразіть кількість покупців кожної статі.");
+                Console.WriteLine("56.Відобразіть кількість покупців кожної статі з кожної країни.");
+
+
+
 
 
                 Console.WriteLine("100. Вихід.");
@@ -245,7 +254,105 @@ namespace ConsoleAppDapper
                         }
                         break;
 
+                    case "44":
+                        var results44 = db.MultiString(Constants.Top3SectionByPromoGoods);
+                        foreach (dynamic result in results44)
+                        {
+                            Console.WriteLine($"SectionName: {result.SectionName}, PromoGoodsCount: {result.PromoGoodsCount}");
+                        }
+                        break;
 
+                    case "45":
+                        var results45 = db.MultiString(Constants.BestSectionByPromoGoods);
+                        foreach (dynamic result in results45)
+                        {
+                            Console.WriteLine($"SectionName: {result.SectionName}, PromoGoodsCount: {result.PromoGoodsCount}");
+                        }
+                        break;
+
+                    case "46":
+                        var results46 = db.MultiString(Constants.Top3SectionByPromoGoods);
+                        foreach (dynamic result in results46)
+                        {
+                            Console.WriteLine($"SectionName: {result.SectionName}, PromoGoodsCount: {result.PromoGoodsCount}");
+                        }
+                        break;
+
+                    case "47":
+                        var results47 = db.MultiString(Constants.GetPromoGoodsFor3days);
+                        foreach (dynamic result in results47)
+                        {
+                            Console.WriteLine($"PromoGoodName: {result.PromoGoodName}, start_date: {result.start_date}, end_date: {result.end_date}");
+                        }
+                        break;
+
+                    case "48":
+                        var results48 = db.MultiString(Constants.GetPromoGoodsForToday);
+                        foreach (dynamic result in results48)
+                        {
+                            Console.WriteLine($"PromoGoodName: {result.PromoGoodName}, start_date: {result.start_date}, end_date: {result.end_date}");
+                        }
+                        break;
+
+                    case "49":
+                        db.Execute(Constants.MoveExpiredPromoGoodsToArchive);
+                        break;
+
+                    case "50":
+                        var results50 = db.MultiString(Constants.GetAvgAgeBySection);
+                        foreach (dynamic result in results50)
+                        {
+                            Console.WriteLine($"SectionName: {result.SectionName}, AvgAge: {result.AvgAge}");
+                        }
+                        break;
+
+                    case "51":
+                        var results51 = db.MultiString(Constants.GetAvgAgeByCity);
+                        foreach (dynamic result in results51)
+                        {
+                            Console.WriteLine($"CityName: {result.CityName}, AvgAge: {result.AvgAge}");
+                        }
+                        break;
+
+                    case "52":
+                        var results52 = db.MultiString(Constants.GetAvgAgeByCountry);
+                        foreach (dynamic result in results52)
+                        {
+                            Console.WriteLine($"CountryName: {result.CountryName}, AvgAge: {result.AvgAge}");
+                        }
+                        break;
+
+                    case "53":
+                        var results53 = db.MultiString(Constants.GetBestSectionByGender);
+                        foreach (dynamic result in results53)
+                        {
+                            Console.WriteLine($"Gender: {result.gender}, Section: {result.SectionName}, SubscriberCount: {result.SubscriberCount}");
+                        }
+                        break;
+
+                    case "54":
+                        var results54 = db.MultiString(Constants.GetTop3SectionByGender);
+                        foreach (dynamic result in results54)
+                        {
+                            Console.WriteLine($"Gender: {result.gender}, Section: {result.SectionName}, SubscriberCount: {result.SubscriberCount}");
+                        }
+                        break;
+
+                    case "55":
+                        var results55 = db.MultiString(Constants.GetCountCustomersByGender);
+                        foreach (dynamic result in results55)
+                        {
+                            Console.WriteLine($"Gender: {result.gender}, CustomerCount: {result.CustomerCount}");
+                        }
+                        break;
+
+                    case "56":
+                        var results56 = db.MultiString(Constants.GetCountCustomerByGenderByCountry);
+                        foreach (dynamic result in results56)
+                        {
+                            Console.WriteLine($"Gender: {result.gender}, Country: {result.CountryName}, 1CustomerCount: {result.CustomerCount}");
+                        }
+                        break;
 
                     case "100":
                             Console.WriteLine("До побачення!");
